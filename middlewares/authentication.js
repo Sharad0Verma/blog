@@ -1,9 +1,9 @@
 const {validateToken} = require('../services/authentication');
 
-function checkForAuthenticationCokkie(cokieName){
+function checkForAuthenticationCookie(cookieName){
     return (res,req,next)=>{
-        const tokenCokkieValue = req.cokkies[cokieName];
-        if(!tokenCokkieValue){
+        const tokenCookieValue = req.cookies?.[cookieName];
+        if(!tokenCookieValue){
             return next();
         }
         try {
@@ -16,5 +16,5 @@ function checkForAuthenticationCokkie(cokieName){
     }
 }
 module.exports={
-    checkForAuthenticationCokkie,
+    checkForAuthenticationCookie,
 }

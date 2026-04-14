@@ -1,6 +1,7 @@
 const {Schema,model} = require('mongoose')
 const {createHmac,randomBytes} = require('node:crypto');
-const{createTokenForUser} = require('../services/authentication')
+const{createTokenForUser} = require('../services/authentication');
+const { nextTick } = require('node:process');
 
 const userSchema = new Schema({
       fullName:{
@@ -14,7 +15,7 @@ const userSchema = new Schema({
       },
       salt:{
           type :String,
-          required : true,
+          // required : true,
       },
        password:{
         type: String,
@@ -44,6 +45,8 @@ userSchema.pre('save',function(){
     .digest("hex");
     this.salt = salt;
     this.password=hashedPassword;
+
+    // next();
 
 })
 
